@@ -19,14 +19,10 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 app:menu="@menu/action_menu"
-                app:title="News App"
+                app:title="@string/app_title"
                 app:titleTextColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-
-<!--            <include-->
-<!--                android:id="@+id/toolbar"-->
-<!--                layout="@layout/include_toolbar" />-->
 
         </com.google.android.material.appbar.AppBarLayout>
 

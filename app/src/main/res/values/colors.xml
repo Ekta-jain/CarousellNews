@@ -11,4 +11,5 @@
     <color name="color_text_gray">#8F939C</color>
     <color name="color_orange">#EE6723</color>
     <color name="color_light_gray">#EFECEB</color>
+    <color name="text_color_light_gray">#8F939C</color>
 </resources>

@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mainViewModelV2 = ViewModelProvider(this)[MainViewModel::class.java]
+        binding.toolbar.overflowIcon = getDrawable(R.drawable.option_menu)
         setSupportActionBar(binding.toolbar)
 
         setUpAdapter()
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                 false
             }
             R.id.action_recent -> {
-                newsMutableList.addAll(rvNewsAdapter.currentList)
+               // newsMutableList.addAll(rvNewsAdapter.currentList)
                 Toast.makeText(this,"Recent clicked", Toast.LENGTH_SHORT).show()
                 newsMutableList.sortWith { obj1, obj2 ->
                     // To compare integer values
@@ -82,11 +83,7 @@ class MainActivity : AppCompatActivity() {
     private fun setObserver() {
         lifecycleScope.launch {
             mainViewModelV2.myStateFlow.collect {
-                Log.i("Observe", "::" + it.data)
-                //delay(2000)
-
                 rvNewsAdapter.submitList(it.data)
-                //  binding.recycleNewsList.adapter = rvAdapter
             }
         }
 
