@@ -1,18 +1,29 @@
-package com.e4ekta.carousellnews
+package com.e4ekta.carousellnews.view
 
+import android.os.Build
+import android.text.format.DateUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.e4ekta.carousellnews.databinding.ItemNewsArticleBinding
 import com.e4ekta.network_module.src.model.CarousellNewsResponseItem
+
+import org.ocpsoft.prettytime.PrettyTime
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.*
 
-class RvNewsAdapter() : ListAdapter<CarousellNewsResponseItem, RvNewsAdapter.ViewHolder>(TaskDiffCallBack()) {
+
+class RvNewsAdapter() : ListAdapter<CarousellNewsResponseItem, RvNewsAdapter.ViewHolder>(
+	TaskDiffCallBack()
+) {
 
 	//private var oldLanguageList= emptyList<CarousellNewsResponseItem>()
 	// create an inner class with name ViewHolder
@@ -40,15 +51,39 @@ class RvNewsAdapter() : ListAdapter<CarousellNewsResponseItem, RvNewsAdapter.Vie
 	// bind the items with each item of the list languageList which than will be
 	// shown in recycler view
 	// to keep it simple we are not setting any image data to view
+	@RequiresApi(Build.VERSION_CODES.O)
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 		holder.onBind(currentList[position], position)
 		with(holder){
 			with(currentList[position]){
 				binding.tvHeader.text = this.title
 				binding.tvSubHeader.text = this.description
+				var timeCreatedms = this.timeCreated.toLong()*1000
+
+
 				val (hours, days, months)  = convertTimestampv2(this.timeCreated.toLong())
 				val duration = hours.toString()+ ":"+days.toString()+"::"+months.toString()
-				binding.tvDuration.text = getRelativeTimev2(this.timeCreated.toLong())
+
+				val LocaleBylanguageTag = Locale.forLanguageTag("es")
+				//val messages: TimeAgoMessages = Builder().withLocale(LocaleBylanguageTag).build()
+
+				val text = DateUtils.getRelativeTimeSpanString(holder.binding.tvHeader.context,timeCreated.toLong(),true)
+				// text
+				val timestampInstant = Instant.ofEpochSecond(timeCreated.toLong())
+				val articlePublishedZonedTime = ZonedDateTime.ofInstant(timestampInstant, ZoneId.systemDefault())
+				Log.i("TimesCre::==","="+timeCreated);
+				Log.i("TimesCre44::==","="+(this.timeCreated.toLong())*1000);
+				Log.i("TimesCre02::==","="+Date(this.timeCreated.toLong()*1000));
+				val pattern = "dd-MM-yyyy"
+				val simpleDateFormat = SimpleDateFormat(pattern)
+				Log.i("TimesCre03::==","="+simpleDateFormat.format(Date(timeCreatedms)));
+				simpleDateFormat.format(Date((this.timeCreated).toLong()))
+				var p = PrettyTime()
+				binding.tvDuration.text  = "${p.format(Date(timeCreatedms))} - ${simpleDateFormat.format(Date(timeCreatedms))}";
+
+
+
+
 				Glide.with(binding.root.context)
 					.load(this.bannerUrl)
 					.into(binding.imageHeader)

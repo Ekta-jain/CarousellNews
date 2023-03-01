@@ -1,4 +1,4 @@
-package com.e4ekta.carousellnews
+package com.e4ekta.carousellnews.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModelV2 @Inject constructor(private val mainRepository: MainRepository) :
+class MainViewModel @Inject constructor(private val mainRepository: MainRepository) :
     ViewModel() {
 
     private val _myStateFlow =
@@ -26,7 +26,7 @@ class MainViewModelV2 @Inject constructor(private val mainRepository: MainReposi
         fetchData()
     }
 
-    private fun fetchData() {
+     fun fetchData() {
         viewModelScope.launch(Dispatchers.IO) {
             flow<ArrayList<CarousellNewsResponseItem>> {
                 val usersFromApi = mainRepository.fetchCustomUI().data

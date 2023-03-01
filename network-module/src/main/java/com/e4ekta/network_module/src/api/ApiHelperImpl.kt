@@ -8,6 +8,6 @@ class ApiHelperImpl @Inject constructor(
     private val apiService: ApiService
 ) : RemoteDataSource {
 
-    override suspend fun fetchCustomUI(): Response<ArrayList<CarousellNewsResponseItem>>  = apiService.fetchCustomUI()
+    override suspend fun getCarousellNewsList(): Response<ArrayList<CarousellNewsResponseItem>>  = apiService.getCarousellNewsList()
 
 }

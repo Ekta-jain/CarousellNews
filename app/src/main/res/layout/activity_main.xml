@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".view.MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/toolbarContainer"
@@ -16,9 +16,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <include
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                layout="@layout/include_toolbar" />
+                app:menu="@menu/action_menu"
+                app:title="News App"
+                app:titleTextColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+<!--            <include-->
+<!--                android:id="@+id/toolbar"-->
+<!--                layout="@layout/include_toolbar" />-->
 
         </com.google.android.material.appbar.AppBarLayout>
 

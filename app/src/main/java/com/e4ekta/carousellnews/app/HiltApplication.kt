@@ -1,4 +1,4 @@
-package com.e4ekta.carousellnews
+package com.e4ekta.carousellnews.app
 
 import dagger.hilt.android.HiltAndroidApp
 

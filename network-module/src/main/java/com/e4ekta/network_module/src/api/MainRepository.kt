@@ -7,5 +7,5 @@ class MainRepository @Inject constructor(
     private val apiService: ApiService
 ): BaseDataSource(){
 
-    suspend fun fetchCustomUI()  = getResult { apiService.fetchCustomUI() }
+    suspend fun fetchCustomUI()  = getResult { apiService.getCarousellNewsList() }
 }

@@ -5,5 +5,5 @@ import retrofit2.Response
 
 interface RemoteDataSource {
 
-    suspend fun fetchCustomUI():Response<ArrayList<CarousellNewsResponseItem>>
+    suspend fun getCarousellNewsList():Response<ArrayList<CarousellNewsResponseItem>>
 }

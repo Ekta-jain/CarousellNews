@@ -2,6 +2,7 @@
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
+    app:menu="@menu/action_menu"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/colorPrimary"
@@ -9,7 +10,7 @@
     android:theme="?attr/actionBarTheme">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -32,16 +33,6 @@
             app:layout_constraintStart_toEndOf="@id/toolbarIcon"
             android:textColor="@color/white"
             android:textSize="18sp" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/toolbarOptionMenu"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:visibility="visible"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/ic_launcher_background"
-            android:tint="@color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.appcompat.widget.Toolbar>

@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface ApiService {
 
     @GET("android/carousell_news.json")
-    suspend fun fetchCustomUI(): Response<ArrayList<CarousellNewsResponseItem>>
+    suspend fun getCarousellNewsList(): Response<ArrayList<CarousellNewsResponseItem>>
 }
