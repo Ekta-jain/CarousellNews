@@ -9,11 +9,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/*Main repository is created in Network Module*/
 @HiltViewModel
 class MainViewModel @Inject constructor(private val mainRepository: MainRepository) :
     ViewModel() {
@@ -26,17 +26,23 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
         fetchData()
     }
 
-     fun fetchData() {
+    fun fetchData() {
         viewModelScope.launch(Dispatchers.IO) {
-            flow<ArrayList<CarousellNewsResponseItem>> {
+            flow {
                 val usersFromApi = mainRepository.fetchCustomUI().data
 
                 emit(usersFromApi!!)
-            }.catch { exception ->
-                // _myStateFlow.value = exception.message
             }.collect { data ->
                 _myStateFlow.value = Resource.success(data)
             }
         }
+    }
+
+    fun sortNewsListByRank(newsList: List<CarousellNewsResponseItem>): List<CarousellNewsResponseItem> {
+        return newsList.sortedBy { it.rank }
+    }
+
+    fun sortNewsListByTimeCreated(newsList: List<CarousellNewsResponseItem>): List<CarousellNewsResponseItem> {
+        return newsList.sortedBy { it.timeCreated }
     }
 }

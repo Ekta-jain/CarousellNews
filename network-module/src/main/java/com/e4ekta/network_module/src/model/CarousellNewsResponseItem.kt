@@ -13,7 +13,7 @@ data class CarousellNewsResponseItem(
     @SerializedName("rank")
     val rank: Int,
     @SerializedName("time_created")
-    val timeCreated: Int,
+    val timeCreated: Long,
     @SerializedName("title")
     val title: String
 )
