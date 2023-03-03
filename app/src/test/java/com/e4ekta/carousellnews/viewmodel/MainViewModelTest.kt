@@ -32,7 +32,7 @@ class MainViewModelTest {
     fun `test fetchData() with successful response`() = runBlockingTest {
         // Mock the response of the fetchCustomUI() method
         val mockResponse = Resource.success(ArrayList<CarousellNewsResponseItem>())
-        Mockito.`when`(mainRepository.fetchCustomUI()).thenReturn(mockResponse)
+        Mockito.`when`(mainRepository.getCarousellNewsList()).thenReturn(mockResponse)
 
         // Call the fetchData() method
         mainViewModel.fetchData()
@@ -47,7 +47,7 @@ class MainViewModelTest {
         // Mock the response of the fetchCustomUI() method with an error message
         val errorMessage = "Error fetching data"
         val mockResponse = Resource.error<ArrayList<CarousellNewsResponseItem>>(errorMessage)
-        Mockito.`when`(mainRepository.fetchCustomUI()).thenReturn(mockResponse)
+        Mockito.`when`(mainRepository.getCarousellNewsList()).thenReturn(mockResponse)
 
         // Call the fetchData() method
         mainViewModel.fetchData()

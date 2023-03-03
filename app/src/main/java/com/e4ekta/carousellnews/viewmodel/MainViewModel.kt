@@ -7,9 +7,10 @@ import com.e4ekta.network_module.src.model.CarousellNewsResponseItem
 import com.e4ekta.network_module.src.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,29 +21,54 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
 
     private val _myStateFlow =
         MutableStateFlow<Resource<ArrayList<CarousellNewsResponseItem>>>(Resource.loading())
-    val myStateFlow: StateFlow<Resource<ArrayList<CarousellNewsResponseItem>>> get() = _myStateFlow
+
+    private val filterBy = MutableStateFlow<FilterOptions>(FilterOptions.NONE)
+
+
+    val uiState: Flow<Resource<ArrayList<CarousellNewsResponseItem>>> =
+        combine(flow = filterBy, flow2 = _myStateFlow) { filterOptions, resource ->
+            when (resource.status) {
+                Resource.Status.SUCCESS -> {
+                    val list = ArrayList<CarousellNewsResponseItem>()
+                    resource.data?.let { list.addAll(it) }
+                    when (filterOptions) {
+                        FilterOptions.POPULAR -> {
+                            list.sortBy { it.rank }
+                        }
+                        FilterOptions.RECENT -> {
+                            list.sortBy { it.timeCreated }
+                        }
+                        FilterOptions.NONE -> {
+
+                        }
+                    }
+                    Resource.success(list)
+                }
+
+                Resource.Status.ERROR -> resource
+                Resource.Status.LOADING -> resource
+            }
+        }
 
     init {
         fetchData()
     }
 
-    fun fetchData() {
-        viewModelScope.launch(Dispatchers.IO) {
-            flow {
-                val usersFromApi = mainRepository.fetchCustomUI().data
-
-                emit(usersFromApi!!)
-            }.collect { data ->
-                _myStateFlow.value = Resource.success(data)
-            }
+    fun sortBy(filterOptions: FilterOptions) {
+        filterBy.update {
+            filterOptions
         }
     }
 
-    fun sortNewsListByRank(newsList: List<CarousellNewsResponseItem>): List<CarousellNewsResponseItem> {
-        return newsList.sortedBy { it.rank }
+    fun fetchData() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _myStateFlow.update {
+                mainRepository.getCarousellNewsList()
+            }
+        }
     }
+}
 
-    fun sortNewsListByTimeCreated(newsList: List<CarousellNewsResponseItem>): List<CarousellNewsResponseItem> {
-        return newsList.sortedBy { it.timeCreated }
-    }
+enum class FilterOptions {
+    POPULAR, RECENT, NONE
 }

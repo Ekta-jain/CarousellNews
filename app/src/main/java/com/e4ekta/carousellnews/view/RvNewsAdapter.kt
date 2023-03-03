@@ -19,7 +19,7 @@ class RvNewsAdapter : ListAdapter<CarousellNewsResponseItem, RvNewsAdapter.ViewH
     // ie ItemNewsArticleBinding and in the RecyclerView.ViewHolder(binding.root) pass it like this
     inner class ViewHolder(val binding: ItemNewsArticleBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(t: CarousellNewsResponseItem, itemPosition: Int) {
+        fun onBind(t: CarousellNewsResponseItem) {
             with(currentList[adapterPosition]) {
                 binding.response = this
             }
@@ -38,7 +38,7 @@ class RvNewsAdapter : ListAdapter<CarousellNewsResponseItem, RvNewsAdapter.ViewH
     // shown in recycler view
     // to keep it simple we are not setting any image data to view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.onBind(currentList[position], position)
+        holder.onBind(currentList[position])
     }
 
     // return the size of currentList

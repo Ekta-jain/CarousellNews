@@ -1,20 +1,18 @@
 package com.e4ekta.carousellnews.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.e4ekta.carousellnews.viewmodel.MainViewModel
 import com.e4ekta.carousellnews.R
 import com.e4ekta.carousellnews.databinding.ActivityMainBinding
-import com.e4ekta.network_module.src.model.CarousellNewsResponseItem
+import com.e4ekta.carousellnews.viewmodel.FilterOptions
+import com.e4ekta.carousellnews.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -23,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mainViewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
     private lateinit var rvNewsAdapter: RvNewsAdapter
-    private var newsMutableList: MutableList<CarousellNewsResponseItem> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +34,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpAdapter() {
-        binding.recycleNewsList.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        binding.recycleNewsList.layoutManager =
+            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rvNewsAdapter = RvNewsAdapter()
         binding.recycleNewsList.adapter = rvNewsAdapter
-        mainViewModel.fetchData()
-
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.action_menu, menu)
         return true
@@ -51,17 +48,11 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_popular -> {
-                newsMutableList.addAll(rvNewsAdapter.currentList)
-                Toast.makeText(this,"Popular clicked"+newsMutableList.size, Toast.LENGTH_SHORT).show()
-                rvNewsAdapter.submitList( mainViewModel.sortNewsListByRank(newsMutableList))
+                mainViewModel.sortBy(FilterOptions.POPULAR)
                 false
             }
             R.id.action_recent -> {
-                if(newsMutableList.isEmpty()){
-                    newsMutableList.addAll(rvNewsAdapter.currentList)
-                }
-                Toast.makeText(this,"Recent clicked", Toast.LENGTH_SHORT).show()
-                rvNewsAdapter.submitList( mainViewModel.sortNewsListByTimeCreated(newsMutableList))
+                mainViewModel.sortBy(FilterOptions.RECENT)
                 return false
             }
             else -> super.onOptionsItemSelected(item)
@@ -70,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setObserver() {
         lifecycleScope.launch {
-            mainViewModel.myStateFlow.collect {
+            mainViewModel.uiState.collect {
                 rvNewsAdapter.submitList(it.data)
             }
         }

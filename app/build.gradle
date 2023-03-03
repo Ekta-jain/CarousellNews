@@ -40,6 +40,12 @@ android {
             enabled = true
         }
     }
+
+    testOptions {
+        // Used for Unit testing Android dependent elements in /test folder
+        unitTests.includeAndroidResources = true
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -81,10 +87,16 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.13.2'
     implementation "androidx.recyclerview:recyclerview:1.1.0"
 
+    testImplementation 'org.mockito:mockito-core:3.10.0'
+    androidTestImplementation 'org.mockito:mockito-android:3.10.0'
     //testImplementation 'junit:junit:4.12'
-    //testImplementation 'org.mockito:mockito-core:2.19.0'
+    // testImplementation 'org.mockito:mockito-core:2.19.0'
     testImplementation 'org.mockito:mockito-inline:2.13.0'
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0'
 
     implementation 'org.ocpsoft.prettytime:prettytime:5.0.4.Final'
+//    def mockito_version = '2.7.1' // For local unit tests on your development machine
+//    testCompile "org.mockito:mockito-core:$mockito_version" // For instrumentation tests on Android devices and emulators
+//    androidTestCompile "org.mockito:mockito-android:$mockito_version"
 }

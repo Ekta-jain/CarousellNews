@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class MainRepository @Inject constructor(
     private val apiService: ApiService
-): BaseDataSource(){
+) : BaseDataSource() {
 
-    suspend fun fetchCustomUI()  = getResult { apiService.getCarousellNewsList() }
+    suspend fun getCarousellNewsList() = getResult { apiService.getCarousellNewsList() }
 }
