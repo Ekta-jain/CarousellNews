@@ -11,6 +11,77 @@
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
+    
+<!--   newly added ///-->
+<!--    &lt;!&ndash; Base application theme. &ndash;&gt;-->
+<!--    <style name="Base.Theme.NewsApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->
+<!--        &lt;!&ndash; Text appearances &ndash;&gt;-->
+<!--        <item name="textAppearanceHeadline1">@style/TextAppearance.NewsApp.Headline1</item>-->
+<!--        <item name="textAppearanceHeadline2">@style/TextAppearance.NewsApp.Headline2</item>-->
+<!--        <item name="textAppearanceHeadline3">@style/TextAppearance.NewsApp.Headline3</item>-->
+<!--        <item name="textAppearanceHeadline4">@style/TextAppearance.NewsApp.Headline4</item>-->
+<!--        <item name="textAppearanceHeadline5">@style/TextAppearance.NewsApp.Headline5</item>-->
+<!--        <item name="textAppearanceHeadline6">@style/TextAppearance.NewsApp.Headline6</item>-->
+<!--        <item name="textAppearanceSubtitle1">@style/TextAppearance.NewsApp.Subtitle1</item>-->
+<!--        <item name="textAppearanceSubtitle2">@style/TextAppearance.NewsApp.Subtitle2</item>-->
+<!--        <item name="textAppearanceBody1">@style/TextAppearance.NewsApp.Body1</item>-->
+<!--        <item name="textAppearanceBody2">@style/TextAppearance.NewsApp.Body2</item>-->
+<!--        <item name="textAppearanceCaption">@style/TextAppearance.NewsApp.Caption</item>-->
+<!--        <item name="textAppearanceButton">@style/TextAppearance.NewsApp.Button</item>-->
+
+<!--        &lt;!&ndash; Shape appearances &ndash;&gt;-->
+<!--        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.NewsApp.SmallComponent-->
+<!--        </item>-->
+<!--        <item name="shapeAppearanceMediumComponent">-->
+<!--            @style/ShapeAppearance.NewsApp.MediumComponent-->
+<!--        </item>-->
+<!--        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.NewsApp.LargeComponent-->
+<!--        </item>-->
+
+<!--        &lt;!&ndash; Widget style &ndash;&gt;-->
+<!--        <item name="switchStyle">@style/Widget.NewsApp.Switch</item>-->
+<!--        <item name="cardViewStyle">@style/Widget.NewsApp.CardView</item>-->
+<!--    </style>-->
+
+<!--    <style name="Theme.NewsApp" parent="Base.Theme.NewsApp">-->
+<!--        &lt;!&ndash; Primary brand color. &ndash;&gt;-->
+<!--        <item name="colorPrimary">@color/color_primary</item>-->
+<!--        <item name="colorPrimaryVariant">@color/color_primary</item>-->
+<!--        <item name="colorOnPrimary">@color/black</item>-->
+<!--        &lt;!&ndash; Secondary brand color. &ndash;&gt;-->
+<!--        <item name="colorSecondary">@color/color_secondary</item>-->
+<!--        <item name="colorSecondaryVariant">@color/color_secondary</item>-->
+<!--        <item name="colorOnSecondary">@color/white</item>-->
+
+<!--        &lt;!&ndash; Surface color. &ndash;&gt;-->
+<!--        <item name="android:colorBackground">@color/color_surface</item>-->
+<!--        <item name="android:windowBackground">@color/color_surface</item>-->
+<!--        <item name="colorSurface">@color/color_surface</item>-->
+<!--        <item name="colorOnSurface">@color/color_on_surface</item>-->
+
+<!--        &lt;!&ndash; Status bar color. &ndash;&gt;-->
+<!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSurface</item>-->
+<!--        <item name="android:windowLightStatusBar">true</item>-->
+<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+<!--    </style>-->
+
+<!--    <style name="Theme.NewsApp.DayNight" parent="Theme.NewsApp" />-->
+
+
+<!--    <style name="Theme.NewsApp.NoActionBar">-->
+<!--        <item name="windowActionBar">false</item>-->
+<!--        <item name="windowNoTitle">true</item>-->
+<!--    </style>-->
+
+<!--    <style name="Theme.NewsApp.Splash" parent="Theme.NewsApp.DayNight">-->
+<!--        <item name="android:windowBackground">@drawable/splash_screen_background</item>-->
+<!--    </style>-->
+
+<!--    <style name="Theme.NewsApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
+
+<!--    <style name="Theme.NewsApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
+
 </resources>

@@ -25,7 +25,7 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
     private val filterBy = MutableStateFlow<FilterOptions>(FilterOptions.NONE)
 
 
-    val uiState: Flow<Resource<ArrayList<CarousellNewsResponseItem>>> =
+    val uiState: Flow<Resource<ArrayList<CarousellNewsResponseItem>?>> =
         combine(flow = filterBy, flow2 = _myStateFlow) { filterOptions, resource ->
             when (resource.status) {
                 Resource.Status.SUCCESS -> {

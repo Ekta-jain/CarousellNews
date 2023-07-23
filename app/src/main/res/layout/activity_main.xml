@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="java.util.ArrayList"/>
+        <import type="com.e4ekta.network_module.src.model.CarousellNewsResponseItem"/>
+        <variable
+            name="newsList"
+            type="ArrayList&lt;CarousellNewsResponseItem>" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,6 +39,7 @@
             android:id="@+id/recycleNewsList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            news_list="@{newsList}"
             tools:listitem="@layout/item_news_article"
             android:background="@color/color_light_gray"
             app:layout_constraintBottom_toBottomOf="parent"
