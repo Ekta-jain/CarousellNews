@@ -16,42 +16,17 @@ import javax.inject.Inject
 
 /*Main repository is created in Network Module*/
 @HiltViewModel
-class MainViewModel @Inject constructor(private val mainRepository: MainRepository) :
+class MainViewModel @Inject constructor(private val newListUseCase: NewListUseCase) :
     ViewModel() {
 
-    private val _myStateFlow =
-        MutableStateFlow<Resource<ArrayList<CarousellNewsResponseItem>>>(Resource.loading())
 
     private val filterBy = MutableStateFlow<FilterOptions>(FilterOptions.NONE)
 
 
-    val uiState: Flow<Resource<ArrayList<CarousellNewsResponseItem>>> =
-        combine(flow = filterBy, flow2 = _myStateFlow) { filterOptions, resource ->
-            when (resource.status) {
-                Resource.Status.SUCCESS -> {
-                    val list = ArrayList<CarousellNewsResponseItem>()
-                    resource.data?.let { list.addAll(it) }
-                    when (filterOptions) {
-                        FilterOptions.POPULAR -> {
-                            list.sortBy { it.rank }
-                        }
-                        FilterOptions.RECENT -> {
-                            list.sortBy { it.timeCreated }
-                        }
-                        FilterOptions.NONE -> {
 
-                        }
-                    }
-                    Resource.success(list)
-                }
-
-                Resource.Status.ERROR -> resource
-                Resource.Status.LOADING -> resource
-            }
-        }
 
     init {
-        fetchData()
+       // fetchData()
     }
 
     fun sortBy(filterOptions: FilterOptions) {
@@ -60,13 +35,25 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
         }
     }
 
-    fun fetchData() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _myStateFlow.update {
-                mainRepository.getCarousellNewsList()
-            }
-        }
-    }
+
+
+    ////
+//
+//    private val _someData = MutableLiveData<SomeData>()
+//    val someData: LiveData<SomeData> get() = _someData
+//
+//    private val _error = MutableLiveData<String>()
+//    val error: LiveData<String> get() = _error
+//
+//    fun fetchData() {
+//        viewModelScope.launch {
+//            val result = useCase.getSomeData()
+//            when (result) {
+//                is ApiResponse.Success -> _someData.value = result.data
+//                is ApiResponse.Error -> _error.value = result.message
+//            }
+//        }
+//    }
 }
 
 enum class FilterOptions {
